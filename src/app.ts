@@ -134,33 +134,58 @@
 
 //Nodemailer
 
-import express, { Request, Response, NextFunction } from 'express';
-import nodemailer from 'nodemailer';
+// import express, { Request, Response, NextFunction } from 'express';
+// import nodemailer from 'nodemailer';
+// 
+// const port = 9800;
+// const app = express();
+// 
+// const transporter = nodemailer.createTransport({
+    // service: 'gmail',
+    // auth: { user: "Shubham.sumfactor@gmail.com", pass: "hgscsvvqtpqvieyk" }
+// });
+// 
+// let mailOptions = {
+    // from: "shubham.sumfactor@gmail.com",
+    // to: "shubhi6767@gmail.com",
+    // subject: "NODE-JS",
+    // text: "THIS IS NODEJS TUTORIAL nodemailer."
+// }
+// 
+// app.get('/sendEmail', (req: Request, res: Response, next: NextFunction) => {
+// 
+    // transporter.sendMail(mailOptions, (error, info) => {
+        // if (error) return res.status(500).send({ error: error })
+// 
+        // console.log("🚀 ~ file: app.ts:80 ~ transporter.sendMail ~ info:", info)
+// 
+        // return res.status(200).send({ info: info });
+    // });
+// });
+// 
+// app.listen(port, () => console.log(`server is listening at port ${port}`));
 
-const port = 9800;
-const app = express();
+import express, { Request, Response, NextFunction, Application, ErrorRequestHandler } from 'express';
+import { Server } from 'http';
+import { config } from 'dotenv';
+config();
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user: "Shubham.sumfactor@gmail.com", pass: "hgscsvvqtpqvieyk" }
-});
+const app: Application = express();
 
-let mailOptions = {
-    from: "shubham.sumfactor@gmail.com",
-    to: "shubhi6767@gmail.com",
-    subject: "NODE-JS",
-    text: "THIS IS NODEJS TUTORIAL nodemailer."
-}
+import { connectNodeDatabase } from "../src/Database/ConnectDatabase"
 
-app.get('/sendEmail', (req: Request, res: Response, next: NextFunction) => {
+// import router from './Routes/routes'
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) return res.status(500).send({ error: error })
+// app.use('/', router)
 
-        console.log("🚀 ~ file: app.ts:80 ~ transporter.sendMail ~ info:", info)
+const port: number = Number(process.env.PORT);
 
-        return res.status(200).send({ info: info });
-    });
-});
 
-app.listen(port, () => console.log(`server is listening at port ${port}`));
+connectNodeDatabase().then((response) => {
+
+    console.log(response)
+    const server: Server = app.listen(port, () => console.log(`server is running at port http://localhost:${port}`))
+
+}).catch((error) => {
+    console.log("🚀 ~ file: app.ts:102 ~ connectNodeDatabase ~ error:", error)
+})
