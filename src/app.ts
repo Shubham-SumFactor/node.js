@@ -28,23 +28,24 @@
 // const PORT: Number = Number(process.env.PORT) || 3000
 // const server: Server = app.listen(PORT, () => console.log(`Server on Port ${PORT}`))
 // 
+import { EventEmitter } from 'events';
 import * as url from "url";
 import * as fs from 'fs';
 import * as path from 'path' // Path-Module
 import { createServer, IncomingMessage, ServerResponse } from "http";
 const port = 8080;
-const server = createServer((request, response ) => {
-    // console.log("🚀 ~ file: app.ts:60 ~ server ~ request:", request)
-// 
-if (request.url == "/name") {
-    if (request.method === "GET") {
+// const server = createServer((request, response ) => {
+    //console.log("🚀 ~ file: app.ts:60 ~ server ~ request:", request)
+
+// if (request.url == "/name") {
+    // if (request.method === "GET") {
         // response.end("hello world");
         // Create files:-
-        fs.open('myFile.txt', 'w', function (err, file) {
-            if (err)
-                throw err;
-            console.log('File open');
-        });
+        // fs.open('myFile.txt', 'w', function (err, file) {
+            // if (err)
+                // throw err;
+            // console.log('File open');
+        // });
         //Update files:-
         //  fs.appendFile('appendfile.txt', ' File appended', function (err) {
             // if (err)
@@ -79,5 +80,18 @@ if (request.url == "/name") {
         // response.end("Wrong method for this api");
     // }
 // }
-}}});
-server.listen(port, () => console.log(`server is listening at port ${port}`));
+// }}});
+// server.listen(port, () => console.log(`server is listening at port ${port}`));
+
+// import { EventEmitter } from 'events'; //defined at the top as well
+const eventBroker = new EventEmitter();
+
+eventBroker.on('event-1', () => {
+    console.log("event 1 is fired")
+})
+
+eventBroker.on('event-2', (ar1, ar2) => {
+    console.log(`event 2 is fired ${ar1} ,${ar2}`)
+})
+eventBroker.emit('event-1')
+eventBroker.emit('event-2', 'hello', 'world')
