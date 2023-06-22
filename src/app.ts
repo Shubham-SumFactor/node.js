@@ -28,12 +28,13 @@
 // const PORT: Number = Number(process.env.PORT) || 3000
 // const server: Server = app.listen(PORT, () => console.log(`Server on Port ${PORT}`))
 // 
-import { EventEmitter } from 'events';
-import * as url from "url";
-import * as fs from 'fs';
-import * as path from 'path' // Path-Module
-import { createServer, IncomingMessage, ServerResponse } from "http";
-const port = 8080;
+
+//import { EventEmitter } from 'events';
+// import * as url from "url";
+// import * as fs from 'fs';
+// import * as path from 'path' // Path-Module
+//import { createServer, IncomingMessage, ServerResponse } from "http";
+//const port = 8080;
 // const server = createServer((request, response ) => {
     //console.log("🚀 ~ file: app.ts:60 ~ server ~ request:", request)
 
@@ -84,14 +85,82 @@ const port = 8080;
 // server.listen(port, () => console.log(`server is listening at port ${port}`));
 
 // import { EventEmitter } from 'events'; //defined at the top as well
-const eventBroker = new EventEmitter();
+// const eventBroker = new EventEmitter();
+// 
+// eventBroker.on('event-1', () => {
+    // console.log("event 1 is fired")
+// })
+// 
+// eventBroker.on('event-2', (ar1, ar2) => {
+    // console.log(`event 2 is fired ${ar1} ,${ar2}`)
+// })
+// eventBroker.emit('event-1')
+// eventBroker.emit('event-2', 'hello', 'world')
 
-eventBroker.on('event-1', () => {
-    console.log("event 1 is fired")
-})
+// 
+// import express, { Request, Response, NextFunction, Application } from 'express';
+// import multer from 'multer';
+//  
+// const app: Application = express();
+// 
+// const port = 9800;
+// const port = 9700;
+// 
 
-eventBroker.on('event-2', (ar1, ar2) => {
-    console.log(`event 2 is fired ${ar1} ,${ar2}`)
-})
-eventBroker.emit('event-1')
-eventBroker.emit('event-2', 'hello', 'world')
+// const storage = multer.diskStorage({
+    // destination(req, file, callback) {
+        // callback(null, './src')
+    // },
+    // filename(req, file, callback) {
+        // callback(null, file.originalname)
+    // },
+// });
+
+// const upload = multer({ storage: storage });
+
+// app.get('/uploadFile', upload.single('myFile'), (req: Request, res: Response, next: NextFunction) => {
+
+    // try {
+        // const file = req.file;
+        // console.log("🚀 ~ file: app.ts:46 ~ app.get ~ file:", file)
+        // res.status(200).send("file is sucessfully saved")
+    // } catch (error) {
+        // console.log("🚀 ~ file: app.ts:51 ~ app.get ~ error:", error)
+    // }
+// });
+
+// app.listen(port, () => console.log(`server is listening at port ${port}`));
+// 
+
+//Nodemailer
+
+import express, { Request, Response, NextFunction } from 'express';
+import nodemailer from 'nodemailer';
+
+const port = 9800;
+const app = express();
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: "Shubham.sumfactor@gmail.com", pass: "hgscsvvqtpqvieyk" }
+});
+
+let mailOptions = {
+    from: "shubham.sumfactor@gmail.com",
+    to: "shubhi6767@gmail.com",
+    subject: "NODE-JS",
+    text: "THIS IS NODEJS TUTORIAL nodemailer."
+}
+
+app.get('/sendEmail', (req: Request, res: Response, next: NextFunction) => {
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) return res.status(500).send({ error: error })
+
+        console.log("🚀 ~ file: app.ts:80 ~ transporter.sendMail ~ info:", info)
+
+        return res.status(200).send({ info: info });
+    });
+});
+
+app.listen(port, () => console.log(`server is listening at port ${port}`));
