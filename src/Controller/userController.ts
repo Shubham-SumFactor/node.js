@@ -7,7 +7,7 @@
             console.log(req.body, "in body")
             //  let { f_name, l_name, email, password, token } = req.body
  
-             const sqlQuery = `insert into user_table (id,f_name,l_name,email,password,token)values(1,'Shubham', 'Thakur', 'shubham.sumfactor@gmail.com', 'shubham123', '1234')`
+             const sqlQuery = `insert into user_table (id,f_name,l_name,email,password,token)values(2,'Shubhamm', 'Thakurr', 'shubham.sumfactor@gmail.com', 'shubham123', '1234')`
 
             // const sqlQuery = `select * from user_table`
 // 
