@@ -7,11 +7,11 @@
             console.log(req.body, "in body")
             //  let { f_name, l_name, email, password, token } = req.body
  
-             const sqlQuery = `insert into user_table (id,f_name,l_name,email,password,token)values(2,'Shubhamm', 'Thakurr', 'shubham.sumfactor@gmail.com', 'shubham123', '1234')`
+            //  const sqlQuery = `insert into user_table (f_name,l_name,email,password,token)values('Shubh', 'singh', 'shubhidesko@gmail.com', 'shubham12345', '4321')`
 
-            // const sqlQuery = `select * from user_table`
+              const sqlQuery = `select * from user_table`
 // 
-            // const sqlQuery = `update  user_table set f_name='ShubhamThakur' where token='1234'`
+            //  const sqlQuery = `update  user_table set f_name='Shub' where token='1234'`
 // 
             // const sqlQuery = `delete  from user_table  where token='1234'`
 // 
