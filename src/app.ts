@@ -166,7 +166,7 @@
 // app.listen(port, () => console.log(`server is listening at port ${port}`));
 
 import express, { Request, Response, NextFunction, Application, ErrorRequestHandler } from 'express';
-import { Server } from 'http';
+import {  createServer, IncomingMessage, Server, ServerResponse } from 'http';
 import { config } from 'dotenv';
 config();
 
@@ -174,9 +174,9 @@ const app: Application = express();
 
 import { connectNodeDatabase } from "../src/Database/ConnectDatabase"
 
-// import router from './Routes/routes'
+import router from './Routes/routes'
 
-// app.use('/', router)
+app.use('/', router)
 
 const port: number = Number(process.env.PORT);
 
@@ -184,7 +184,7 @@ const port: number = Number(process.env.PORT);
 connectNodeDatabase().then((response) => {
 
     console.log(response)
-    const server: Server = app.listen(port, () => console.log(`server is running at port http://localhost:${port}`))
+    const server: Server = app.listen(port, () => console.log(`server is running at port http://127.0.0.1:${port}`))
 
 }).catch((error) => {
     console.log("🚀 ~ file: app.ts:102 ~ connectNodeDatabase ~ error:", error)

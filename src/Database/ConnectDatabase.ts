@@ -23,19 +23,19 @@ export const connectNodeDatabase = () => {
 
     })
 }
+// 
+export const executeQuery = (sqlQuery: string) => {
+    return new Promise((resolve, reject) => {
+        try {
+            connection.connect((error, response) => {
+                console.log("🚀 ~ file: ConnectDatabase.ts:31 ~ connection.query ~ error:", error)
+                if (error) return reject(error)
 
-// export const executeQuery = (sqlQuery: string) => {
-    // return new Promise((resolve, reject) => {
-        // try {
-            // connection.connect((error, response) => {
-                // console.log("🚀 ~ file: ConnectDatabase.ts:31 ~ connection.query ~ error:", error)
-                // if (error) return reject(error)
-// 
-                // return resolve("Database connected Successfully")
-            // })
-        // } catch (error) {
-            // console.log("🚀 ~ file: ConnectDatabase.ts:32 ~ return newPromise ~ error:", error)
-// 
-        // }
-    // })
-// }
+                return resolve(response)
+            })
+        } catch (error) {
+            console.log("🚀 ~ file: ConnectDatabase.ts:32 ~ return newPromise ~ error:", error)
+
+        }
+    })
+}
