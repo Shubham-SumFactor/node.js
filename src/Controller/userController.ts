@@ -9,13 +9,13 @@
  
             //  const sqlQuery = `insert into user_table (f_name,l_name,email,password,token)values('Shubh', 'singh', 'shubhidesko@gmail.com', 'shubham12345', '4321')`
 
-              const sqlQuery = `select * from user_table`
+            //   const sqlQuery = `select * from user_table`
 // 
             //  const sqlQuery = `update  user_table set f_name='Shub' where token='1234'`
 // 
-            // const sqlQuery = `delete  from user_table  where token='1234'`
+            //  const sqlQuery = `delete  from user_table  where token='1234'`
 // 
-            // const sqlQuery = `SELECT * FROM user_table as a join user_bankdetail as b  on a.email= b.email;`
+            const sqlQuery = `SELECT * FROM user_table as a join user_bankdetail as b  on a.email= b.email;`
 
             let response = await executeQuery(sqlQuery)
  
