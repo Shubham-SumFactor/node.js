@@ -176,6 +176,9 @@ import { connectNodeDatabase } from "../src/Database/ConnectDatabase"
 
 import router from './Routes/routes'
 
+app.use(express.json()); //parse JSON request bodies, allowing you to access the properties sent in the request body through req.body.
+
+
 app.use('/', router)
 
 const port: number = Number(process.env.PORT);
