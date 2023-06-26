@@ -1,6 +1,6 @@
 
 import { executeQuery } from '../Database/ConnectDatabase'
-
+import { generateAccessToken, refreshAccessToken } from '../util/service'
 import bcrypt from 'bcrypt';
 
  export const userRegistration = async (req: any, res: any) => {
@@ -28,9 +28,9 @@ import bcrypt from 'bcrypt';
 //====================================Validation for duplicacy============
 
             const getRecord = `SELECT * from user_table where email='${email}'`
-            let resultset: any = await executeQuery(getRecord);
+            let resulset: any = await executeQuery(getRecord);
 
-            if (resultset.length > 0) return res.status(400).send({ message: "User already registered please login" });
+            if (resulset.length > 0) return res.status(400).send({ message: "User already registered please login" });
 // =====================================================
 
             // Encrypting the Password========================
@@ -70,8 +70,44 @@ export const userlogin = async (req: any, res: any) => {
 
             if (match == false) return res.status(400).send("Entered Password is Incorrect")
 
+// ===================================JWT Token====================================================
+
+             let user: any = { email: email as string, password: password as string }
+
+            let accessToken = generateAccessToken(user)
+
+            console.log("🚀 ~ file: userController.ts:60 ~ returnnewPromise ~ accessToken:", accessToken)
+
+            let refreshToken = refreshAccessToken({ user: user })
+
+            console.log("🚀 ~ file: userController.ts:64 ~ returnnewPromise ~ refreshToken:", refreshToken)
+
+            return resolve({ message: "User Sucessfully Logged in", data: resulset, accessToken: accessToken, refreshToken: refreshToken });
+            //===
+
+
+
             return resolve(resulset)
         }catch(error){
             console.log("new Promise error", error)
         }
     })}
+
+    //=========================== GET ALL USER ===========================
+export const getAllUser = async (req: any, res: any) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            const getRecord = `select * from user_table;`
+
+            let resulset: any = await executeQuery(getRecord)
+
+            return resolve(resulset)
+
+        } catch (error) {
+            console.log("🚀 ~ file: userController.ts:89 ~ returnnewPromise ~ error:", error)
+
+        }
+    })
+}
+//=======================================================================
