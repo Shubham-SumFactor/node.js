@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        <%= pageName %>
+    </h1>
+
+    <form action="/registerUser" method="post" style="display: flex; justify-content: center; align-items: center;">
+
+        <div>
+            <label for="fname">fname</label>
+            <input type="text" name="f_name">
+        </div>
+
+        <div>
+            <label for="l_name">l_name</label>
+            <input type="text" name="l_name">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+        </div>
+
+        <button type="submit" value="Submit" class="mr-2">Register </button>
+    </form>
+
+</body>
+
+</html>
