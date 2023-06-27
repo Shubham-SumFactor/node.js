@@ -175,6 +175,14 @@ const app: Application = express();
 import { connectNodeDatabase } from "../src/Database/ConnectDatabase"
 
 import router from './Routes/routes'
+import bodyParser from 'body-parser';
+import path from 'path'
+
+app.use(bodyParser.json(),bodyParser.urlencoded({extended:false}))
+
+app.set("views", path.join(__dirname, "public"))
+
+app.set('views-engine', "ejs")
 
 app.use(express.json()); //parse JSON request bodies, allowing you to access the properties sent in the request body through req.body.
 
