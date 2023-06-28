@@ -2,6 +2,7 @@
 import { executeQuery } from '../Database/ConnectDatabase'
 import { generateAccessToken, refreshAccessToken } from '../util/service'
 import bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
  export const userRegistration = async (req: any, res: any) => {
     return new Promise(async (resolve, reject) => {
@@ -111,3 +112,38 @@ export const getAllUser = async (req: any, res: any) => {
     })
 }
 //=======================================================================
+
+export const refreshToken = async (req: any, res: any) => {
+
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let { token, email } = req.body
+
+            if (token == null) return res.sendStatus(401)
+
+            const getRecord = `select * from user_table where email='${email}';`
+
+            let resulset: any = await executeQuery(getRecord)
+            console.log("🚀 ~ file: userController.ts:109 ~ returnnewPromise ~ resulset:", resulset)
+
+            if (resulset.length == 0) return res.sendStatus(403)
+
+            jwt.verify(token, process.env.REFRESH_ACCESS_KEY as string, (error: unknown, response: unknown) => {
+
+                if (error) return res.sendStatus(403)
+
+                const accessToken: string = generateAccessToken({ email: resulset[0].email, password: resulset[0].password })
+
+                // res.json({ token: `Bearer ${acessToken}` })
+
+                return resolve({ token: `Bearer ${accessToken}` })
+            })
+
+        } catch (error) {
+            console.log("🚀 ~ file: userController.ts:103 ~ returnnewPromise ~ error:", error)
+            res.json({ error: error })
+        }
+    })
+
+}
